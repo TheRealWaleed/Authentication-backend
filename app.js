@@ -22,5 +22,10 @@ app.get('/', (req, res) => {
     res.send('Hello world !');
 });
 
+// Inexistent route
+app.use(function(req, res, next) {
+    return res.status(404).send({ message: 'Route '+req.url+' Not found.' });
+});
+
 
 module.exports = app;
