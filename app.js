@@ -27,5 +27,9 @@ app.use(function(req, res, next) {
     return res.status(404).send({ message: 'Route '+req.url+' Not found.' });
 });
 
+// 500 - Any server error
+app.use(function(error, req, res, next) {
+    return res.status(500).send({ message: error.message, stack: error.stack});
+});
 
 module.exports = app;
