@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello world !');
+    res.send({message: 'Ra welcomes you !'});
 });
 
 // Inexistent route
