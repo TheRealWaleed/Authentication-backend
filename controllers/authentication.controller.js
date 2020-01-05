@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 const bcrypt = require('bcrypt');
 const validator = require('../services').passwordValidator;
+const Mailer = require('../services').sendGridService;
 const URL = require('url').Url;
 
 module.exports = {
@@ -17,6 +18,8 @@ module.exports = {
                 password: req.body.password
             })
                 .then( account => {
+                    Mailer.sendEmail(account.email,'Activate your account','Click on this link to activate your account http://localhost:3000/auth/activate/'+ account.id)
+                        .then(res.status(201).send(account));
                     res.status(201).send({message: "Account created!"});
                 })
                 .catch( error => res.status(400).send({error:error, message: error.message, stack: error.stack}));

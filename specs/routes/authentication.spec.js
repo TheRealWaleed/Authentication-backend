@@ -19,7 +19,7 @@ describe ('Authentication endpoints', () => {
                 .send(account)
                 .end((err,res) => {
                 expect(res).to.have.status(201);
-                expect(res.body.message).to.be.equal("Account created!");
+                expect(res.body.message).to.be.equal("Account created and validation email sent!");
                 expect(res.body.errors).to.be.equal(undefined);
                 done();
             })
