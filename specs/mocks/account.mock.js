@@ -1,5 +1,5 @@
 const faker = require("faker");
-module.exports = ()=>{
+module.exports = () => {
     return {
         id: faker.random.uuid(),
         email: faker.internet.email(),

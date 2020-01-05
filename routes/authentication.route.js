@@ -1,4 +1,5 @@
-const accountController = require('../controllers')
+const authController = require('../controllers').authenticationController;
+
 module.exports = (app) => {
-    app.post('/auth/register', accountController.register);
+    app.post('/register', authController.register);
  };

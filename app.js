@@ -22,6 +22,8 @@ app.get('/', (req, res) => {
     res.send({message: 'Ra welcomes you !'});
 });
 
+require('./routes').authentication(app);
+
 // Inexistent route
 app.use(function(req, res, next) {
     return res.status(404).send({ message: 'Route '+req.url+' Not found.' });
