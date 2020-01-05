@@ -19,8 +19,8 @@ module.exports = {
             })
                 .then( account => {
                     Mailer.sendEmail(account.email,'Activate your account','Click on this link to activate your account http://localhost:3000/auth/activate/'+ account.id)
-                        .then(res.status(201).send(account));
-                    res.status(201).send({message: "Account created!"});
+                        .then(() => res.status(201).send({message: "Account created and validation email sent!"}))
+                        .catch(err => res.status(400).send({error:err, message: err.message, stack: err.stack}));
                 })
                 .catch( error => res.status(400).send({error:error, message: error.message, stack: error.stack}));
         }
