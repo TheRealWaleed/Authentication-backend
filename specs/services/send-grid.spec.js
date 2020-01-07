@@ -1,6 +1,4 @@
-const chai = require('chai');
-const expect = chai.expect;
-const sendGrid = require('./../../services').sendGridService
+const sendGrid = require('./../../services').sendGridService;
 
 
 describe('SendGrid service', () => {
