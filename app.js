@@ -1,12 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const pino = require('express-pino-logger')({prettyPrint: true});
 const cors = require('cors');
 
 const app = express();
 
 app.use(cors());
-app.use(logger('dev'));
+app.use(pino);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -19,8 +19,10 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello world !');
+    res.send({message: 'Ra welcomes you !'});
 });
+
+require('./src/routes').authentication(app);
 
 // Inexistent route
 app.use(function(req, res, next) {

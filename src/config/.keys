@@ -1,0 +1,10 @@
+module.exports = {
+  jwt: {
+    secret: ''
+    slatRounds: 10
+  },
+    sendGrid: {
+      apiKey: '',
+      mail: ''
+    },
+};

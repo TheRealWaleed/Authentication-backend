@@ -1,17 +1,37 @@
 {
   "name": "authentication-backend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "mocha specs/app.spec",
+    "start": "node ./src/bin/www | pino-tee info ./src/logs/info-logs.log error ./src/logs/error-logs.log > ./src/logs/all-logs.log || true "
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
+    "cors": "^2.8.5",
+    "debug": "^2.6.9",
     "express": "~4.16.1",
+    "express-pino-logger": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
-    "pg": "^7.15.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "password-validator": "^5.0.3",
+    "pg": "^7.17.0",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.3"
+    "pino": "^5.15.0",
+    "sequelize": "^5.21.3",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "faker": "^4.1.0",
+    "mocha": "^6.2.2",
+    "pino-pretty": "^3.5.0",
+    "pino-tee": "^0.3.0",
+    "sequelize-mock": "^0.10.2"
   }
 }
