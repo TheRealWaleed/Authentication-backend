@@ -1,12 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+var pino = require('express-pino-logger')({prettyPrint: true})
 const cors = require('cors');
 
 const app = express();
 
 app.use(cors());
-app.use(logger('dev'));
+app.use(pino)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

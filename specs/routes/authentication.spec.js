@@ -26,4 +26,21 @@ describe ('Authentication endpoints', () => {
             })
         })
     });
+    describe('login', () => {
+        it('should returns 200 and return token', (done) => {
+            const account = {
+                email: 'test@test.com',
+                password: 'TestAuth0453#'
+            };
+            chai.request(app).post('/login')
+                .send(account)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.cookie('token');
+                    expect(res.body.errors).to.be.equal(undefined);
+                    done();
+                })
+
+        });
+    })
 });
