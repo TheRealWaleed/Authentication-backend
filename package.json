@@ -1,5 +1,7 @@
 {
   "name": "authentication-backend",
+  "author": "The Real Waleed",
+  "description": "Node.js authentication application",
   "version": "0.0.1",
   "private": true,
   "scripts": {
