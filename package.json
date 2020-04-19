@@ -5,8 +5,22 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "commit": "git add . && git-cz",
+    "lint": "eslint ./src --fix",
+    "start": "node ./src/bin/www | pino-tee info ./src/logs/info-logs.log error ./src/logs/error-logs.log > ./src/logs/all-logs.log || true ",
+    "release": "standard-version",
     "test": "mocha specs/app.spec",
-    "start": "node ./src/bin/www | pino-tee info ./src/logs/info-logs.log error ./src/logs/error-logs.log > ./src/logs/all-logs.log || true "
+    "version": "echo $npm_package_version"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
@@ -28,12 +42,20 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "faker": "^4.1.0",
+    "husky": "^4.2.5",
     "mocha": "^6.2.2",
     "pino-pretty": "^3.5.0",
     "pino-tee": "^0.3.0",
-    "sequelize-mock": "^0.10.2"
+    "sequelize-mock": "^0.10.2",
+    "standard-version": "^7.1.0"
   }
 }
