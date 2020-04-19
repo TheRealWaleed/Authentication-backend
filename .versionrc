@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "postchangelog": "npm run replace:host"
+  }
+}
