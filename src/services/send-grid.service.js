@@ -1,5 +1,5 @@
-const sgMail = require("@sendgrid/mail");
-const keys = require("../config/keys");
+const sgMail = require('@sendgrid/mail');
+const keys = require('../config/keys');
 
 module.exports = {
   sendEmail(to, subject, template) {

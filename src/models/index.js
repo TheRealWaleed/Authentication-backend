@@ -1,11 +1,13 @@
-const path = require("path");
-const fs = require("fs");
-const Sequelize = require("sequelize");
+const path = require('path');
+const fs = require('fs');
+const Sequelize = require('sequelize');
 
 const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
 // eslint-disable-next-line import/no-dynamic-require
-const config = require(`${__dirname}/../config/db.config.json`)[env];
+// const config = require(`${__dirname}/../config/db.config.js`)[env];
+const config = require('../config/db.config')[env];
+
 const db = {};
 let sequelize;
 
@@ -22,9 +24,9 @@ if (config.use_env_variable) {
 
 fs
   .readdirSync(__dirname)
-  .filter((file) => (file.indexOf(".") !== 0)
+  .filter((file) => (file.indexOf('.') !== 0)
         && (file !== basename)
-        && (file.slice(-3) === ".js"))
+        && (file.slice(-3) === '.js'))
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;

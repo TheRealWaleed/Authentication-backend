@@ -1,7 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const pino = require('express-pino-logger')({prettyPrint: true});
+const pino = require('express-pino-logger')({ prettyPrint: true });
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 
@@ -12,26 +13,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
 
 app.get('/', (req, res) => {
-    res.send({message: 'Ra welcomes you !'});
+  res.send({ message: 'Ra welcomes you !' });
 });
 
 require('./src/routes').authentication(app);
 
 // Inexistent route
-app.use(function(req, res, next) {
-    return res.status(404).send({ message: 'Route '+req.url+' Not found.' });
-});
+app.use((req, res) => res
+  .status(404)
+  .send({ message: `Route ${req.url} Not found.` }));
 
 // 500 - Any server error
-app.use(function(error, req, res, next) {
-    return res.status(500).send({ message: error.message, stack: error.stack});
-});
+app.use((error, req, res) => res
+  .status(500)
+  .send({ message: error.message, stack: error.stack }));
 
 module.exports = app;

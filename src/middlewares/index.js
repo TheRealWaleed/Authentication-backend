@@ -1,4 +1,4 @@
-const jwtMiddleware = require("./jwt-authentication.middleware");
+const jwtMiddleware = require('./jwt-authentication.middleware');
 
 module.exports = {
   jwtMiddleware,

@@ -1,4 +1,4 @@
-const PasswordValidator = require("password-validator");
+const PasswordValidator = require('password-validator');
 
 // Create a schema
 const schema = new PasswordValidator();
@@ -16,7 +16,7 @@ schema
   .spaces() // Should not have spaces
   .is()
   .not()
-  .oneOf(["Password123"]); // Blacklist these values
+  .oneOf(['Password123']); // Blacklist these values
 
 module.exports = {
   validatePassword(password) {

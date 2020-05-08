@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { Account } = require("../models");
-const keys = require("../config/keys");
-const validator = require("../services").passwordValidator;
-const mailer = require("../services").sendGridService;
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const { Account } = require('../models');
+const keys = require('../config/keys');
+const validator = require('../services').passwordValidator;
+const mailer = require('../services').sendGridService;
 
 module.exports = {
   /**
@@ -23,15 +23,15 @@ module.exports = {
       password: req.body.password,
     })
       .then((account) => {
-        const link = "activate";
+        const link = 'activate';
 
         mailer.sendEmail(
           account.email,
-          "Activate your account",
+          'Activate your account',
           `Click on this link to ${link.link(`http://localhost:3000/auth/activate/${account.id}`)} your account`,
         )
           .then(() => res.status(201)
-            .send({ message: "Account created and validation email sent!" }))
+            .send({ message: 'Account created and validation email sent!' }))
           .catch((err) => res.status(400)
             .send({
               error: err,
@@ -62,17 +62,17 @@ module.exports = {
         account.comparePassword(req.body.password, (err, isMatch) => {
           if (isMatch && !err) {
             const token = jwt.sign({ account }, keys.jwt.secret, {
-              algorithm: "HS256",
+              algorithm: 'HS256',
               expiresIn: 86400,
             });
-            res.cookie("token", token, { maxAge: 900000, httpOnly: false })
+            res.cookie('token', token, { maxAge: 900000, httpOnly: false })
               .status(200)
               .send({ success: true, account });
           } else {
             res.status(401)
               .send({
                 success: false,
-                message: "Authentication failed. Wrong password.",
+                message: 'Authentication failed. Wrong password.',
               });
           }
         });
@@ -81,7 +81,7 @@ module.exports = {
         res.status(400)
           .send({
             error,
-            hint: "Authentication failed. Wrong password.",
+            hint: 'Authentication failed. Wrong password.',
             message: error.message,
             stack: error.stack,
           });
@@ -100,7 +100,7 @@ module.exports = {
       .then((account) => {
         if (account.activated === true) {
           res.status(200)
-            .send({ success: true, msg: "Account already activated" });
+            .send({ success: true, msg: 'Account already activated' });
         } else if (account.activated === false) {
           // eslint-disable-next-line no-param-reassign
           account.activated = true;
@@ -110,7 +110,7 @@ module.exports = {
                 .send({
                   success: true,
                   account: e,
-                  msg: "Account activated",
+                  msg: 'Account activated',
                 });
             })
             .catch((error) => {
@@ -128,7 +128,7 @@ module.exports = {
           .send({
             error,
             success: true,
-            hint: "No account.",
+            hint: 'No account.',
             message: error.message,
             stack: error.stack,
           });
@@ -153,25 +153,25 @@ module.exports = {
         account.reset_token = resetToken;
         account.save()
           .then((_account) => {
-            const frontendResetPasswordLink = "this link";
+            const frontendResetPasswordLink = 'this link';
 
             mailer.sendEmail(
               _account.email,
-              "Reset password",
+              'Reset password',
               `Click on this link to reset your password ${URL.parse(`${frontendResetPasswordLink}/${resetToken}`)}`,
             )
               .then((success) => {
                 res.status(200)
                   .send({
                     success,
-                    msg: "Link has been sent",
+                    msg: 'Link has been sent',
                   });
               })
               .catch((error) => {
                 res.status(500)
                   .send({
                     error,
-                    hint: "send mail has been failed",
+                    hint: 'send mail has been failed',
                     message: error.message,
                     stack: error.stack,
                   });
@@ -181,7 +181,7 @@ module.exports = {
             res.status(500)
               .send({
                 error: err,
-                hint: "database error",
+                hint: 'database error',
                 message: err.message,
                 stack: err.stack,
               });
@@ -191,7 +191,7 @@ module.exports = {
         res.status(400)
           .send({
             error,
-            hint: "Account not found.",
+            hint: 'Account not found.',
             message: error.message,
             stack: error.stack,
           });
@@ -212,7 +212,7 @@ module.exports = {
       res.status(401)
         .send({
           success: false,
-          hint: "Your token has been expired",
+          hint: 'Your token has been expired',
         });
     } else if (req.body.new_password === req.body.confirm_password) {
       Account.findOne({ where: { id: req.body.id } })
@@ -228,7 +228,7 @@ module.exports = {
                   res.status(200)
                     .send({
                       success: true,
-                      msg: "Password updated",
+                      msg: 'Password updated',
                       account,
                     });
                 })
@@ -241,7 +241,7 @@ module.exports = {
               res.status(500)
                 .send({
                   error: err,
-                  msg: "Problem in encrypting password",
+                  msg: 'Problem in encrypting password',
                 });
             });
         })
@@ -249,7 +249,7 @@ module.exports = {
           res.status(500)
             .send({
               success: false,
-              hint: "Database issue",
+              hint: 'Database issue',
               message: error.message,
               stack: error.stack,
             });
@@ -258,7 +258,7 @@ module.exports = {
       res.status(500)
         .send({
           success: false,
-          hint: "password do not match",
+          hint: 'password do not match',
         });
     }
   },

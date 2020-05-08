@@ -1,5 +1,6 @@
 # db config
-src/config/db.config.json
+src/config/db.config.js
+
 #keys
 src/config/keys.js
 

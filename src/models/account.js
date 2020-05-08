@@ -1,10 +1,10 @@
 
-const bcrypt = require("bcrypt");
-const keys = require("../config/keys");
+const bcrypt = require('bcrypt');
+const keys = require('../config/keys');
 
 
 module.exports = (sequelize, DataTypes) => {
-  const Account = sequelize.define("Account", {
+  const Account = sequelize.define('Account', {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     strategy: {
       type: DataTypes.ENUM,
-      values: ["email", "googlePlus", "facebook", "linkedIn", "github"],
-      defaultValue: "email",
+      values: ['email', 'google_plus', 'facebook', 'linked_in', 'github'],
+      defaultValue: 'email',
       allowNull: false,
     },
   }, {});
