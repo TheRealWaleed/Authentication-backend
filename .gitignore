@@ -1,9 +1,3 @@
-# db config
-src/config/db.config.js
-
-#keys
-src/config/keys.js
-
 # Logs
 src/logs/*
 *.log
