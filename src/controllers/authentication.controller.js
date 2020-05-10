@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { Account } = require('../models');
-const keys = require('../config/keys');
 const validator = require('../services').passwordValidator;
 const mailer = require('../services').sendGridService;
 
@@ -61,7 +60,7 @@ module.exports = {
       .then((account) => {
         account.comparePassword(req.body.password, (err, isMatch) => {
           if (isMatch && !err) {
-            const token = jwt.sign({ account }, keys.jwt.secret, {
+            const token = jwt.sign({ account }, process.env.JWT_SECRET, {
               algorithm: 'HS256',
               expiresIn: 86400,
             });
@@ -145,7 +144,7 @@ module.exports = {
   sendResetPasswordLink(req, res) {
     return Account.findOne({ where: { email: req.body.email } })
       .then((account) => {
-        const resetToken = jwt.sign({ account }, keys.jwt.secret, {
+        const resetToken = jwt.sign({ account }, process.env.JWT_SECRET, {
           expiresIn: 3600,
         });
 
@@ -217,7 +216,7 @@ module.exports = {
     } else if (req.body.new_password === req.body.confirm_password) {
       Account.findOne({ where: { id: req.body.id } })
         .then((account) => {
-          const salt = bcrypt.genSaltSync(keys.jwt.slatRounds);
+          const salt = bcrypt.genSaltSync(process.env.JWT_SALT);
 
           bcrypt.hash(req.body.new_password, salt)
             .then((hash) => {

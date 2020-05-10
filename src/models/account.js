@@ -1,7 +1,6 @@
+require('dotenv').config();
 
 const bcrypt = require('bcrypt');
-const keys = require('../config/keys');
-
 
 module.exports = (sequelize, DataTypes) => {
   const Account = sequelize.define('Account', {
@@ -37,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line no-unused-vars
   Account.beforeCreate((account, option, callback) => {
     if (account.password != null) {
-      const salt = bcrypt.genSaltSync(keys.jwt.slatRounds);
+      const salt = bcrypt.genSaltSync(process.env.JWT_SALT);
 
       return bcrypt.hash(account.password, salt)
         .then((hash) => {
