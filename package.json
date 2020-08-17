@@ -7,7 +7,7 @@
   "scripts": {
     "commit": "git add . && git-cz",
     "lint": "eslint ./src --fix",
-    "start": "node ./src/bin/www | pino-tee info ./src/logs/info-logs.log error ./src/logs/error-logs.log > ./src/logs/all-logs.log || true ",
+    "start": "nodemon ./src/bin/www | pino-tee info ./src/logs/info-logs.log error ./src/logs/error-logs.log > ./src/logs/all-logs.log || true ",
     "release": "standard-version",
     "test": "mocha specs/app.spec",
     "version": "echo $npm_package_version"
@@ -54,6 +54,7 @@
     "faker": "^4.1.0",
     "husky": "^4.2.5",
     "mocha": "^6.2.2",
+    "nodemon": "^2.0.4",
     "pino-pretty": "^3.5.0",
     "pino-tee": "^0.3.0",
     "sequelize-mock": "^0.10.2",
